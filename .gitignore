@@ -1,2 +1,6 @@
 *.class
 *.log
+*.iml
+*.metals
+project
+target
