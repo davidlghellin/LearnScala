@@ -7,7 +7,7 @@ name := "LearnScala"
 
 val scalaTest = "org.scalatest" %% "scalatest" % "3.0.4" % Test
 
-lazy val `introlagom` = (project in file("."))
+lazy val `DavidScala` = (project in file("."))
   .settings(
     commonSettings,
   )
