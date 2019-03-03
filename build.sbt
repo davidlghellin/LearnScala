@@ -28,7 +28,7 @@ lazy val commonSettings = Seq(
   version := "0.1-SNAPSHOT",
   organization := "es.david",
   scalaVersion := "2.12.8"
-  //  test in assembly := {}
+  //  test in assembly := {} 
 )
 
 
@@ -45,6 +45,7 @@ lazy val `Listas` = (project in file("Listas"))
   .settings(
     commonSettings,
     mainClass in assembly := Some("Saluda"),
+  //  mainClass in (Compile, run):= Some("Saluda"),
     name := "proyecto",
     libraryDependencies ++= Seq(
       scalaTest

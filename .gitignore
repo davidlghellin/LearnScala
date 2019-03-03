@@ -2,5 +2,12 @@
 *.log
 *.iml
 *.metals
-project
+scalastyle-config.xml
+
+.bloop
+
+project/*
+!project/plugins.sbt
+!project/build.properties
+
 target
