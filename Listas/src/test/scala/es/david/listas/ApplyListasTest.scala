@@ -1,7 +1,6 @@
 package es.david.listas
 
 import org.scalatest.{FlatSpec, Matchers}
-import es.david.listas._
 
 class ApplyListasTest extends FlatSpec with Matchers {
   "Lista" should "elemento 1" in {

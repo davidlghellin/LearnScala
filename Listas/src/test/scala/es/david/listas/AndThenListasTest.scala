@@ -1,7 +1,6 @@
 package es.david.listas
 
 import org.scalatest.{FlatSpec, Matchers}
-import es.david.listas._
 
 class AndThenListasTest extends FlatSpec with Matchers {
 

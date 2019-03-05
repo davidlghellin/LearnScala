@@ -1,8 +1,7 @@
 package es.david.listas
 
-import org.scalatest.{FlatSpec, Matchers}
-import es.david.listas._
 import es.david.entidades.Donnut
+import org.scalatest.{FlatSpec, Matchers}
 
 class AggregateListasTest extends FlatSpec with Matchers {
   "Aggregate" should "int" in {
