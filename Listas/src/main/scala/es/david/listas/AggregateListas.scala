@@ -1,5 +1,7 @@
 package es.david.listas
 
+import es.david.entidades.Donnut
+
 object AggregateListas{
     /*
         En estos metodos vamos a ver como podemos usar la función aggregate, principalmente son dos metodos
@@ -46,4 +48,3 @@ object AggregateListas{
         )
     }
 }
-case class Donnut(nombre:String, precio:Double, cantidad:Int)
