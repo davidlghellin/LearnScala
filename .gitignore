@@ -11,3 +11,4 @@ project/*
 !project/build.properties
 
 target
+.idea/*

@@ -1,1 +1,0 @@
-case class Perro (i:Int)
