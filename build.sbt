@@ -6,12 +6,29 @@ name := "LearnScala"
 ////scalaVersion := "2.12.8"
 
 val scalaTest = "org.scalatest" %% "scalatest" % "3.0.4" % Test
+val scalaMock = "org.scalamock" %% "scalamock" % "4.0.0" % "test"
+val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.13.4" % "test"
 
-lazy val `DavidScala` = (project in file("."))
+
+val scalazVersion = "7.2.26" //"7.1.0"
+val scalaZCore = "org.scalaz" %% "scalaz-core" % scalazVersion
+val scalaZEffect = "org.scalaz" %% "scalaz-effect" % scalazVersion
+val scalaZTypelevel = "org.scalaz" %% "scalaz-typelevel" % scalazVersion
+
+val simulacrum = "com.github.mpilquist" %% "simulacrum" % "0.13.0"
+
+val shapeless = "com.chuusai" %% "shapeless" % "2.3.3"
+val catsCore = "org.typelevel" %% "cats-core" % "1.0.0"
+
+val scalactic = "org.scalactic" %% "scalactic" % "3.0.4"
+val refined = "eu.timepit" %% "refined" % "0.9.4"
+
+
+lazy val `LearnScalaAll` = (project in file("."))
   .settings(
-    commonSettings,
+    commonSettings
   )
-  .aggregate(`hola`, `Listas`, `ProgFun`, `Categoria`, `TypeClases`, `LearnScalaz`, `LearnRefined`)
+  .aggregate(`Categoria`, `LearnScalaz`, `LearnRefined`, `Listas`, `ProgFun`, `TypeClases`)
 
 lazy val commonSettings = Seq(
   scalacOptions += "-language:_",
@@ -22,45 +39,59 @@ lazy val commonSettings = Seq(
   // scalacOptions += "-Ywarn-unused-import", // los import que no se usan los detecta
 
   //https://docs.scala-lang.org/overviews/compiler-options/index.html
-  scalacOptions ++= Seq("-encoding", "utf8",
-    "-explaintypes"),
+  scalacOptions ++= Seq(
+    "-encoding"
+    , "utf8"
+    , "-explaintypes"
+  ),
 
   version := "0.1-SNAPSHOT",
   organization := "es.david",
   scalaVersion := "2.12.8"
-  //  test in assembly := {} 
+  //  test in assembly := {}
+  , addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.7")
+  , addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full)
 )
 
 
-lazy val `hola` = (project in file("hola"))
-  .settings(
-    commonSettings,
-    libraryDependencies ++= Seq(
-      scalaTest
-    )
-  )
-
+//lazy val `Libreria` = (project in file("Libreria"))
+//  .settings(
+//    commonSettings,
+//    libraryDependencies ++= Seq(
+//      scalaTest
+//    )
+//  )
+//
+//
+//lazy val `Proyecto` = (project in file("Proyecto"))
+//  .settings(
+//    commonSettings,
+//    mainClass in assembly := Some("Saluda"),
+//    //  mainClass in (Compile, run):= Some("Saluda"),
+//    name := "proyecto",
+//    libraryDependencies ++= Seq(
+//      scalaTest
+//    )
+//  )
+//  .dependsOn(`Libreria`)
 
 lazy val `Listas` = (project in file("Listas"))
   .settings(
     commonSettings,
-    mainClass in assembly := Some("Saluda"),
-  //  mainClass in (Compile, run):= Some("Saluda"),
-    name := "proyecto",
     libraryDependencies ++= Seq(
       scalaTest
     )
   )
-  .dependsOn(`hola`)
 
 lazy val `ProgFun` = (project in file("ProgFun"))
   .settings(
     commonSettings,
     libraryDependencies ++= Seq(
-      scalaTest,
-      "org.scalactic" %% "scalactic" % "3.0.4",
-      "org.scalamock" %% "scalamock" % "4.0.0" % "test",
-      "org.scalacheck" %% "scalacheck" % "1.13.4" % "test"
+      scalaTest
+      , scalactic
+      , scalaMock
+      , scalaCheck
+      , shapeless
     )
   )
 
@@ -68,10 +99,10 @@ lazy val `Categoria` = (project in file("Categoria"))
   .settings(
     commonSettings,
     libraryDependencies ++= Seq(
-      scalaTest,
-      "org.scalactic" %% "scalactic" % "3.0.4",
-      "org.scalamock" %% "scalamock" % "4.0.0" % "test",
-      "org.scalacheck" %% "scalacheck" % "1.13.4" % "test"
+      scalaTest
+      , scalactic
+      , scalaMock
+      , scalaCheck
     )
   )
 
@@ -79,10 +110,11 @@ lazy val `TypeClases` = (project in file("TypeClases"))
   .settings(
     commonSettings,
     libraryDependencies ++= Seq(
-      scalaTest,
-      "org.scalactic" %% "scalactic" % "3.0.4",
-      "org.scalamock" %% "scalamock" % "4.0.0" % "test",
-      "org.scalacheck" %% "scalacheck" % "1.13.4" % "test"
+      scalaTest
+      , scalactic
+      , catsCore
+      , scalaMock
+      , scalaCheck
     )
   )
 
@@ -90,9 +122,12 @@ lazy val `LearnScalaz` = (project in file("LearnScalaz"))
   .settings(
     commonSettings,
     libraryDependencies ++= Seq(
-      scalaTest,
-      "com.github.mpilquist" %% "simulacrum" % "0.13.0",
-      "org.scalaz" %% "scalaz-core" % "7.2.26"
+      scalaTest
+      , simulacrum
+      , scalaZCore
+      // , scalaZTypelevel
+      , scalaZEffect
+      , refined
     )
   )
 
@@ -100,15 +135,13 @@ lazy val `LearnRefined` = (project in file("LearnRefined"))
   .settings(
     commonSettings,
     libraryDependencies ++= Seq(
-      scalaTest,
-      "eu.timepit" %% "refined" % "0.9.4"
+      scalaTest
+      , refined
     )
   )
 
-addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.7")
-addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full)
-
 ////
+
 import scala.sys.process._
 
 lazy val hello = taskKey[Unit]("Prints 'Hello World'")
@@ -152,5 +185,3 @@ compressTar := {
 
   s.log.success("Completado ")
 }
-
-name in Compile := "hello"
