@@ -28,7 +28,7 @@ lazy val `LearnScalaAll` = (project in file("."))
   .settings(
     commonSettings
   )
-  .aggregate(`Categoria`, `LearnScalaz`, `LearnRefined`, `Listas`, `ProgFun`, `TypeClases`)
+  .aggregate(`Categoria`, `LearnScalaz`, `LearnRefined`, `LibreriasUtils`, `Listas`, `ProgFun`, `TypeClases`)
 
 lazy val commonSettings = Seq(
   scalacOptions += "-language:_",
@@ -137,6 +137,14 @@ lazy val `LearnRefined` = (project in file("LearnRefined"))
     libraryDependencies ++= Seq(
       scalaTest
       , refined
+    )
+  )
+lazy val `LibreriasUtils` = (project in file("LibreriasUtils"))
+  .settings(
+    commonSettings,
+    libraryDependencies ++= Seq(
+      scalaTest
+      , "org.rogach" %% "scallop" % "3.4.0"
     )
   )
 
