@@ -128,6 +128,11 @@ lazy val `LearnScalaz` = (project in file("LearnScalaz"))
       // , scalaZTypelevel
       , scalaZEffect
       , refined
+      , "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
+      // https://mvnrepository.com/artifact/org.scalaz/scalaz-concurrent
+      , "org.scalaz" %% "scalaz-concurrent" % "7.2.30"
+      , "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
+      , "ch.qos.logback" % "logback-classic" % "1.2.3"
     )
   )
 
