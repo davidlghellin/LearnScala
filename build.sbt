@@ -28,7 +28,7 @@ lazy val `LearnScalaAll` = (project in file("."))
   .settings(
     commonSettings
   )
-  .aggregate(`Categoria`, `LearnScalaz`, `LearnRefined`, `LibreriasUtils`, `Listas`, `ProgFun`, `TypeClases`)
+  .aggregate(`Categoria`, `LearnScalaz`, `LearnRefined`, `LearnZIO`, `LibreriasUtils`, `Listas`, `ProgFun`, `TypeClases`)
 
 lazy val commonSettings = Seq(
   scalacOptions += "-language:_",
@@ -144,6 +144,17 @@ lazy val `LearnRefined` = (project in file("LearnRefined"))
       , refined
     )
   )
+
+lazy val `LearnZIO` = (project in file("LearnZIO"))
+  .settings(
+    commonSettings,
+    libraryDependencies ++= Seq(
+      scalaTest
+      , "dev.zio" %% "zio" % "1.0.0-RC18-2"
+      , "dev.zio" %% "zio-logging" % "0.2.7"
+    )
+  )
+
 lazy val `LibreriasUtils` = (project in file("LibreriasUtils"))
   .settings(
     commonSettings,
