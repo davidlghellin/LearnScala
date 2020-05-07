@@ -14,4 +14,7 @@ object MyApp extends App {
       name <- getStrLn
       _ <- putStrLn(s"Hello, ${name}, welcome to ZIO!")
     } yield ()
+  // Para interactuar con la consola importaremos zio.console._
+  // para escribir tenemos putStrl[Ln]
+  // para leer getStrLn
 }
