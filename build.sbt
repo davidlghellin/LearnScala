@@ -1,34 +1,50 @@
 name := "LearnScala"
 
-//organization in ThisBuild := "es.david"
-//version in ThisBuild := "1.0-SNAPSHOT"
-//scalaVersion in ThisBuild := "2.12.8"
-////scalaVersion := "2.12.8"
 
-val scalaTest = "org.scalatest" %% "scalatest" % "3.0.4" % Test
-val scalaMock = "org.scalamock" %% "scalamock" % "4.0.0" % "test"
-val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.13.4" % "test"
+lazy val dependencies =
+  new {
+    val scalazVersion = "7.2.26"
+    val refinedVersion = "0.9.4"
+    val refined = "eu.timepit" %% "refined" % refinedVersion
 
+    val scalaZCore = "org.scalaz" %% "scalaz-core" % scalazVersion
+    val scalaZEffect = "org.scalaz" %% "scalaz-effect" % scalazVersion
+    val scalaZTypelevel = "org.scalaz" %% "scalaz-typelevel" % scalazVersion
 
-val scalazVersion = "7.2.26" //"7.1.0"
-val scalaZCore = "org.scalaz" %% "scalaz-core" % scalazVersion
-val scalaZEffect = "org.scalaz" %% "scalaz-effect" % scalazVersion
-val scalaZTypelevel = "org.scalaz" %% "scalaz-typelevel" % scalazVersion
+    val scalaTest = "org.scalatest" %% "scalatest" % "3.0.4" % Test
+    val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.13.4" % "test"
+    val scalaMock = "org.scalamock" %% "scalamock" % "4.0.0" % "test"
 
-val simulacrum = "com.github.mpilquist" %% "simulacrum" % "0.13.0"
+    val simulacrum = "com.github.mpilquist" %% "simulacrum" % "0.13.0"
 
-val shapeless = "com.chuusai" %% "shapeless" % "2.3.3"
-val catsCore = "org.typelevel" %% "cats-core" % "1.0.0"
+    val shapeless = "com.chuusai" %% "shapeless" % "2.3.3"
+    val catsCore = "org.typelevel" %% "cats-core" % "1.0.0"
+    val cats = "org.typelevel" %% "cats" % "0.9.0"
 
-val scalactic = "org.scalactic" %% "scalactic" % "3.0.4"
-val refined = "eu.timepit" %% "refined" % "0.9.4"
+    val scalactic = "org.scalactic" %% "scalactic" % "3.0.4"
+  }
 
+lazy val commonDependencies = Seq(
+  dependencies.scalaTest
+)
 
-lazy val `LearnScalaAll` = (project in file("."))
+testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oD")
+
+lazy val LearnScalaAll = (project in file("."))
   .settings(
     commonSettings
   )
-  .aggregate(`Categoria`, `LearnScalaz`, `LearnRefined`, `LearnZIO`, `LibreriasUtils`, `Listas`, `ProgFun`, `TypeClases`)
+  .aggregate(
+    Categoria
+    , LearnScalaz
+    , LearnRefined
+    , LearnZIO
+    , LibreriasUtils
+    , Listas
+    , ProgFun
+    , TypeClases
+    , Sofp
+  )
 
 lazy val commonSettings = Seq(
   scalacOptions += "-language:_",
@@ -44,7 +60,7 @@ lazy val commonSettings = Seq(
     , "utf8"
     , "-explaintypes"
   ),
-
+  sbtPlugin := true,
   version := "0.1-SNAPSHOT",
   organization := "es.david",
   scalaVersion := "2.12.8"
@@ -54,7 +70,7 @@ lazy val commonSettings = Seq(
 )
 
 
-//lazy val `Libreria` = (project in file("Libreria"))
+//lazy val Libreria = (project in file("Libreria"))
 //  .settings(
 //    commonSettings,
 //    libraryDependencies ++= Seq(
@@ -63,7 +79,7 @@ lazy val commonSettings = Seq(
 //  )
 //
 //
-//lazy val `Proyecto` = (project in file("Proyecto"))
+//lazy val Proyecto = (project in file("Proyecto"))
 //  .settings(
 //    commonSettings,
 //    mainClass in assembly := Some("Saluda"),
@@ -73,95 +89,110 @@ lazy val commonSettings = Seq(
 //      scalaTest
 //    )
 //  )
-//  .dependsOn(`Libreria`)
+//  .dependsOn(Libreria)
 
-lazy val `Listas` = (project in file("Listas"))
+lazy val Listas = project
   .settings(
     commonSettings,
-    libraryDependencies ++= Seq(
-      scalaTest
-    )
+    libraryDependencies ++=
+      commonDependencies
   )
 
-lazy val `ProgFun` = (project in file("ProgFun"))
+lazy val ProgFun = project
   .settings(
     commonSettings,
-    libraryDependencies ++= Seq(
-      scalaTest
-      , scalactic
-      , scalaMock
-      , scalaCheck
-      , shapeless
-    )
+    libraryDependencies ++=
+      commonDependencies ++ Seq(
+        dependencies.scalactic
+        , dependencies.scalaMock
+        , dependencies.scalaCheck
+        , dependencies.shapeless
+        , dependencies.cats
+      )
   )
 
-lazy val `Categoria` = (project in file("Categoria"))
+lazy val Categoria = project
   .settings(
     commonSettings,
-    libraryDependencies ++= Seq(
-      scalaTest
-      , scalactic
-      , scalaMock
-      , scalaCheck
-    )
+    libraryDependencies ++=
+      commonDependencies ++ Seq(
+        dependencies.scalactic
+        , dependencies.scalaMock
+        , dependencies.scalaCheck
+      )
   )
 
-lazy val `TypeClases` = (project in file("TypeClases"))
+lazy val TypeClases = project
   .settings(
     commonSettings,
-    libraryDependencies ++= Seq(
-      scalaTest
-      , scalactic
-      , catsCore
-      , scalaMock
-      , scalaCheck
-    )
+    libraryDependencies ++=
+      commonDependencies ++ Seq(
+        dependencies.scalactic
+        , dependencies.catsCore
+        , dependencies.scalaMock
+        , dependencies.scalaCheck
+      )
   )
 
-lazy val `LearnScalaz` = (project in file("LearnScalaz"))
+lazy val LearnScalaz = project
   .settings(
     commonSettings,
-    libraryDependencies ++= Seq(
-      scalaTest
-      , simulacrum
-      , scalaZCore
-      // , scalaZTypelevel
-      , scalaZEffect
-      , refined
-      , "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
-      // https://mvnrepository.com/artifact/org.scalaz/scalaz-concurrent
-      , "org.scalaz" %% "scalaz-concurrent" % "7.2.30"
-      , "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
-      , "ch.qos.logback" % "logback-classic" % "1.2.3"
-    )
+    libraryDependencies ++=
+      commonDependencies ++ Seq(
+        dependencies.simulacrum
+        , dependencies.scalaZCore
+        // , dependencies.scalaZTypelevel
+        , dependencies.scalaZEffect
+        , dependencies.refined
+        , "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
+        // https://mvnrepository.com/artifact/org.scalaz/scalaz-concurrent
+        , "org.scalaz" %% "scalaz-concurrent" % "7.2.30"
+        , "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
+        , "ch.qos.logback" % "logback-classic" % "1.2.3"
+      )
   )
 
-lazy val `LearnRefined` = (project in file("LearnRefined"))
+lazy val LearnRefined = project
   .settings(
     commonSettings,
-    libraryDependencies ++= Seq(
-      scalaTest
-      , refined
-    )
+    libraryDependencies ++=
+      commonDependencies ++ Seq(
+        dependencies.refined
+      )
   )
 
-lazy val `LearnZIO` = (project in file("LearnZIO"))
+lazy val LearnZIO = project
   .settings(
     commonSettings,
-    libraryDependencies ++= Seq(
-      scalaTest
-      , "dev.zio" %% "zio" % "1.0.0-RC18-2"
-      , "dev.zio" %% "zio-logging" % "0.2.7"
-    )
+    libraryDependencies ++=
+      commonDependencies ++ Seq(
+        "dev.zio" %% "zio" % "1.0.0-RC18-2"
+        , "dev.zio" %% "zio-logging" % "0.2.7"
+
+        , "dev.zio" %% "zio-logging" % "0.2.7"
+        , "dev.zio" %% "zio-test" % "1.0.0-RC18-2" % "test"
+        , "dev.zio" %% "zio-test-sbt" % "1.0.0-RC18-2" % "test"
+        //     ,"dev.zio" %% "zio-test-magnolia" % zioVersion % "test" // optional
+      )
   )
 
-lazy val `LibreriasUtils` = (project in file("LibreriasUtils"))
+testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
+
+lazy val LibreriasUtils = project
   .settings(
     commonSettings,
-    libraryDependencies ++= Seq(
-      scalaTest
-      , "org.rogach" %% "scallop" % "3.4.0"
-    )
+    libraryDependencies ++=
+      commonDependencies ++ Seq(
+        "org.rogach" %% "scallop" % "3.4.0"
+      )
+  )
+
+lazy val Sofp = project
+  .settings(
+    commonSettings,
+    libraryDependencies ++=
+      commonDependencies ++ Seq(
+      )
   )
 
 ////
