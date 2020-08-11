@@ -3,7 +3,7 @@ package es.david.basic
 import zio._
 import zio.console._
 
-object MyApp extends App {
+object LearnZioMyApp extends App {
 
   def run(args: List[String]) =
     myAppLogic.fold(_ => 1, _ => 0)
