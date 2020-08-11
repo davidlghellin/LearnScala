@@ -24,7 +24,7 @@ object TypleClassEquality {
   }
 }
 
-object Main extends App {
+object MainTPE extends App {
 
   println(TypleClassEquality.isEqual(3, 3))
 

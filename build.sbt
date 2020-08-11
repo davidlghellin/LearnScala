@@ -5,6 +5,8 @@ lazy val dependencies =
   new {
     val scalazVersion = "7.2.26"
     val refinedVersion = "0.9.4"
+    val monocleVersion = "2.0.0"
+
     val refined = "eu.timepit" %% "refined" % refinedVersion
 
     val scalaZCore = "org.scalaz" %% "scalaz-core" % scalazVersion
@@ -22,15 +24,20 @@ lazy val dependencies =
     val cats = "org.typelevel" %% "cats" % "0.9.0"
 
     val scalactic = "org.scalactic" %% "scalactic" % "3.0.4"
+    val monocleCore = "com.github.julien-truffaut" %% "monocle-core" % monocleVersion
+    val monocleMacro = "com.github.julien-truffaut" %% "monocle-macro" % monocleVersion
+    val monocleTest = "com.github.julien-truffaut" %% "monocle-law" % monocleVersion % "test"
   }
-
 lazy val commonDependencies = Seq(
   dependencies.scalaTest
 )
 
 testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oD")
 
+//ThisBuild / shellPrompt := { state => s"aaaaa{prompt(projectName(state))}> " }
+
 lazy val LearnScalaAll = (project in file("."))
+  .enablePlugins(LocPlugin)
   .settings(
     commonSettings
   )
@@ -134,6 +141,16 @@ lazy val TypeClases = project
       )
   )
 
+lazy val LearnLens = project
+  .settings(
+    commonSettings,
+    libraryDependencies ++=
+      commonDependencies ++ Seq(
+        dependencies.monocleCore
+        ,dependencies.monocleMacro
+        ,dependencies.monocleTest
+      )
+  )
 lazy val LearnScalaz = project
   .settings(
     commonSettings,
