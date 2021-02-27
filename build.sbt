@@ -27,6 +27,9 @@ lazy val dependencies =
     val monocleCore = "com.github.julien-truffaut" %% "monocle-core" % monocleVersion
     val monocleMacro = "com.github.julien-truffaut" %% "monocle-macro" % monocleVersion
     val monocleTest = "com.github.julien-truffaut" %% "monocle-law" % monocleVersion % "test"
+
+    // https://mvnrepository.com/artifact/com.chuusai/shapeless
+    val shapeless2 = "com.chuusai" %% "shapeless" % "2.4.0-M1"
   }
 lazy val commonDependencies = Seq(
   dependencies.scalaTest
@@ -147,8 +150,8 @@ lazy val LearnLens = project
     libraryDependencies ++=
       commonDependencies ++ Seq(
         dependencies.monocleCore
-        ,dependencies.monocleMacro
-        ,dependencies.monocleTest
+        , dependencies.monocleMacro
+        , dependencies.monocleTest
       )
   )
 lazy val LearnScalaz = project
@@ -166,6 +169,19 @@ lazy val LearnScalaz = project
         , "org.scalaz" %% "scalaz-concurrent" % "7.2.30"
         , "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
         , "ch.qos.logback" % "logback-classic" % "1.2.3"
+      )
+  )
+
+lazy val LearnShapeless = project
+  .settings(
+    commonSettings,
+    libraryDependencies ++=
+      commonDependencies ++ Seq(
+        dependencies.refined
+        , "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
+        // https://mvnrepository.com/artifact/org.scalaz/scalaz-concurrent
+        , "ch.qos.logback" % "logback-classic" % "1.2.3"
+        , dependencies.shapeless2
       )
   )
 
