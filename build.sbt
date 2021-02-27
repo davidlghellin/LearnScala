@@ -47,6 +47,7 @@ lazy val LearnScalaAll = (project in file("."))
   .aggregate(
     Categoria
     , LearnScalaz
+    , LearnShapeless
     , LearnRefined
     , LearnZIO
     , LibreriasUtils
@@ -206,6 +207,9 @@ lazy val LearnZIO = project
         , "dev.zio" %% "zio-test" % "1.0.0-RC18-2" % "test"
         , "dev.zio" %% "zio-test-sbt" % "1.0.0-RC18-2" % "test"
         //     ,"dev.zio" %% "zio-test-magnolia" % zioVersion % "test" // optional
+        , "dev.zio" %% "zio-config" % "1.0.0"
+        , "dev.zio" %% "zio-config-magnolia" % "1.0.0"
+        ,"dev.zio" %% "zio-config-typesafe" % "1.0.0"
       )
   )
 

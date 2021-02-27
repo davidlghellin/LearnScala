@@ -5,8 +5,7 @@ import zio.console._
 
 object LearnZioMyApp extends App {
 
-  def run(args: List[String]) =
-    myAppLogic.fold(_ => 1, _ => 0)
+  def run(args: List[String]) = myAppLogic.exitCode
 
   val myAppLogic =
     for {

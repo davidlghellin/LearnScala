@@ -41,8 +41,8 @@ object BasicOperation extends App {
   /*
    * El programa ejecutable
    */
-  def run(args: List[String]) =
-    program.fold(_ => 1, _ => 0)
+  def run(args: List[String]) = ???
+ //   program.fold(_ => 1, _ => 0)
 
   ////
   val parseInt: IO[String, Int] =
