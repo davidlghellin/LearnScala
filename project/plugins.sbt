@@ -1,0 +1,1 @@
+//addSbtPlugin("es.david" % "PluginLog" % "0.1-SNAPSHOT")
