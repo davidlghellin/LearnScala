@@ -46,6 +46,7 @@ lazy val LearnScalaAll = (project in file("."))
   )
   .aggregate(
     Categoria
+    , LearnCat
     , LearnScalaz
     , LearnShapeless
     , LearnRefined
@@ -229,6 +230,16 @@ lazy val Sofp = project
     commonSettings,
     libraryDependencies ++=
       commonDependencies ++ Seq(
+      )
+  )
+
+val catsVersion = "2.1.1"
+lazy val LearnCat = project
+  .settings(
+    commonSettings,
+    libraryDependencies ++=
+      commonDependencies ++ Seq(
+        "org.typelevel" %% "cats-core" % catsVersion
       )
   )
 
